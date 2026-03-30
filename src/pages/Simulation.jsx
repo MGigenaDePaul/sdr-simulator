@@ -2,27 +2,48 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Simulation.css";
 
-const lead = {
+const angryLeadInfo = {
   name: "Georgia Barnes",
-  manuscript: "Almost finished",
-  experience: "Published before",
-  budget: "Uncertain",
+  manuscript: "almost done",
+  experience: "second time publishing, didn't have a good experience before",
+  budget: "uncertain",
+  responses: {
+    greeting: "What do you want?!",
+    budget: "That's none of your business!",
+    manuscript: "Yeah I'm writing one, so what?",
+    experience: "Don't remind me of that disaster.",
+    transfer: "Why would I talk to someone else?!",
+    default: "Stop wasting my time.",
+  },
 };
 
-const leadResponses = [
-  "Yeah, I remember filling something out...",
-  "I'm not sure I have the budget for this.",
-  "What exactly do you guys do?",
-  "I already published before.",
-  "I've been thinking about it for a while now.",
-  "Can you just send me an email instead?",
-  "How much does it cost?",
+const happyLeadInfo = {
+  name: "Maria Antonieta",
+  manuscript: "done",
+  experience: "first time",
+  budget: "uncertain",
+}
+
+const busyLeadInfo = {
+  name: "Rafael Gutierrez",
+  manuscript: "finished",
+  experience: "has published 5 times",
+  budget: "he has it",
+}
+
+const keywordMap = [
+  { keywords: ["hi", "hello", "hey", "this is"], category: "greeting" },
+  { keywords: ["budget", "money", "afford", "cost"], category: "budget" },
+  { keywords: ["book", "manuscript", "writing"], category: "manuscript" },
+  { keywords: ["experience", "published", "before"], category: "experience" },
+  { keywords: ["expert", "transfer", "speak", "call"], category: "transfer" },
 ];
 
 const Simulation = () => {
   const [messages, setMessages] = useState([
     { from: "Lead", text: "Hello? Who's this?" },
   ]);
+  const [selectedLead, setSelectedLead] = useState(null);
   const [input, setInput] = useState("");
   const chatEnd = useRef(null);
   const navigate = useNavigate();
@@ -31,15 +52,26 @@ const Simulation = () => {
     chatEnd.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+
   const sendMessage = () => {
     if (!input.trim()) return;
 
-    const userMsg = { from: "You", text: input.trim() };
-    const randomReply =
-      leadResponses[Math.floor(Math.random() * leadResponses.length)];
-    const leadMsg = { from: "Lead", text: randomReply };
+    const lowerInput = input.trim().toLowerCase();
 
-    setMessages((prev) => [...prev, userMsg, leadMsg]);
+    const userMessage = { from: "You", text: lowerInput };
+
+    const match = keywordMap.find((entry) => 
+      entry.keywords.some((word) => lowerInput.includes(word))
+    )
+    
+    const reply = match 
+      ? selectedLead.responses[match.category]
+      : selectedLead.responses.default
+    
+    
+    const leadMessage = { from: "Lead", text: reply}
+
+    setMessages((prev) => [...prev, userMessage, leadMessage]);
     setInput("");
   };
 
@@ -50,31 +82,48 @@ const Simulation = () => {
   return (
     <div className="sim-container">
       <div className="sim-left">
-        <h2>📋 Lead Info</h2>
-        <p><strong>Name:</strong> {lead.name}</p>
-        <p><strong>Manuscript:</strong> {lead.manuscript}</p>
-        <p><strong>Experience:</strong> {lead.experience}</p>
-        <p><strong>Budget:</strong> {lead.budget}</p>
-        <hr />
+        <p className='select-lead-text'>Select a type of lead</p>
+        {!selectedLead && (
+          <div className="lead-types">
+            <button onClick={() => setSelectedLead(angryLeadInfo)}>angry</button>
+            <button onClick={() => setSelectedLead(happyLeadInfo)}>happy</button>
+            <button onClick={() => setSelectedLead(busyLeadInfo)}>busy</button>
+          </div>
+        )}  
+        
+        <br />
+        {selectedLead && (  
+          <div className="lead-info">
+            <h2>📋 Lead Info</h2>
+            <p><strong>Name:</strong> {selectedLead.name}</p>
+            <p><strong>Manuscript:</strong> {selectedLead.manuscript}</p>
+            <p><strong>Experience:</strong> {selectedLead.experience}</p>
+            <p><strong>Budget:</strong> {selectedLead.budget}</p>
+            <hr />
+          </div>
+        )}
+
+        
+        
         <h3>🎯 Objective</h3>
         <p className="objective-text">
           Qualify the lead and decide if they are ready to speak with an expert.
         </p>
-        <button onClick={() => navigate('/')}>Go to home</button>
+        <button className='home-btn'onClick={() => navigate('/')}>Go to home</button>
       </div>
 
       <div className="sim-right">
         <div className="chat-box">
-          {messages.map((msg, i) => (
+          {messages.map((message, i) => (
             <div
               key={i}
-              className={`bubble ${msg.from === "You" ? "you" : "lead"}`}
+              className={`bubble ${message.from === "You" ? "you" : "lead"}`}
             >
-              <span className="label">{msg.from}</span>
-              <p>{msg.text}</p>
+              <span className="label">{message.from}</span>
+              <p>{message.text}</p>
             </div>
           ))}
-          <div ref={chatEnd} />
+          <div ref={chatEnd} /> {/*for scrolling*/}
         </div>
 
         <div className="input-row">

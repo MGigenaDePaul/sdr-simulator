@@ -1,0 +1,78 @@
+
+.home{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #1a1a1a;
+    height: 100vh;
+    width: 100vw;   
+    color: #fff;
+    gap: 20px;
+    font-family: sans-serif;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.title{
+    font-size: 60px;
+    padding: 8px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    text-align: center;
+    padding: 8px;
+    color: #aaa;
+}
+
+.rule-card{
+    padding: 8px;
+    background: #222;
+    border-radius: 8px;
+    padding: 16px 24px;
+    border: 1px solid #333;
+    text-align: center;
+}
+
+.start-btn {
+  padding: 10px 20px;
+  background: #2563eb;
+  align-self: center;
+  width: auto;
+  color: #fff;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: box-shadow 0.3s;
+}
+
+.start-btn:hover{
+    box-shadow: 0 0 15px rgba(37, 99, 235, 0.5);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px)
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+.fade-out {
+    animation: fadeOut 0.6s ease-in forwards;
+}
