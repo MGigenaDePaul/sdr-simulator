@@ -1,3 +1,4 @@
+/* ─── SIMULATION CONTAINER ─── */
 .sim-container {
   display: flex;
   height: 100vh;
@@ -5,12 +6,26 @@
   font-family: sans-serif;
 }
 
-/* LEFT PANEL */
+.sim-container.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ─── LEFT PANEL ─── */
 .sim-left {
   width: 30%;
   background: #1a1a1a;
   padding: 24px;
   border-right: 1px solid #333;
+  overflow-y: auto;
 }
 
 .sim-left h2 {
@@ -69,8 +84,34 @@
   margin-top: 10px;
 }
 
+/* ─── TOPIC TRACKER ─── */
+.topic-tracker {
+  background: #222;
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 16px;
+}
+
+.topic-tracker h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.topic-item {
+  font-size: 14px;
+  padding: 4px 0;
+  color: #888;
+  transition: color 0.3s;
+}
+
+.topic-item.covered {
+  color: #4ade80;
+  font-weight: bold;
+}
+
+/* ─── BUTTONS ─── */
 .home-btn {
-  margin-top: 20px;
+  margin-top: 12px;
   padding: 8px 16px;
   background: #333;
   color: #fff;
@@ -79,13 +120,31 @@
   cursor: pointer;
   font-size: 13px;
   transition: background 0.2s;
+  display: block;
 }
 
 .home-btn:hover {
   background: #444;
 }
 
-/* RIGHT PANEL */
+.restart-btn {
+  margin-top: 12px;
+  padding: 8px 16px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.2s;
+  display: block;
+}
+
+.restart-btn:hover {
+  background: #1d4ed8;
+}
+
+/* ─── RIGHT PANEL ─── */
 .sim-right {
   width: 70%;
   background: #111;
@@ -102,11 +161,33 @@
   gap: 10px;
 }
 
+.chat-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #555;
+  font-size: 16px;
+}
+
+/* ─── BUBBLES ─── */
 .bubble {
   max-width: 60%;
   padding: 8px 14px;
   border-radius: 10px;
   color: #fff;
+  animation: bubbleFade 0.3s ease-out;
+}
+
+@keyframes bubbleFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .bubble.you {
@@ -119,6 +200,17 @@
   background: #333;
 }
 
+.bubble.system {
+  align-self: center;
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #94a3b8;
+  font-size: 12px;
+  font-style: italic;
+  max-width: 80%;
+  text-align: center;
+}
+
 .bubble .label {
   font-size: 10px;
   color: #aaa;
@@ -128,6 +220,26 @@
   margin: 0;
 }
 
+/* ─── SELLING WARNING ─── */
+.selling-warning {
+  align-self: center;
+  background: #7f1d1d;
+  color: #fca5a5;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: bold;
+  border: 1px solid #991b1b;
+  animation: warningPulse 0.5s ease-in-out;
+}
+
+@keyframes warningPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+/* ─── INPUT ROW ─── */
 .input-row {
   display: flex;
   padding: 12px;
@@ -146,6 +258,11 @@
   font-size: 14px;
 }
 
+.input-row input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .input-row button {
   padding: 10px 20px;
   background: #2563eb;
@@ -154,4 +271,78 @@
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
+}
+
+.input-row button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ─── SIMULATION COMPLETE SCREEN ─── */
+.sim-complete {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #1a1a1a;
+  color: #fff;
+  font-family: sans-serif;
+  animation: fadeIn 0.8s ease-out;
+  gap: 24px;
+}
+
+.sim-complete h1 {
+  font-size: 40px;
+}
+
+.complete-card {
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 32px;
+  min-width: 400px;
+  max-width: 500px;
+}
+
+.complete-card h2 {
+  margin-bottom: 16px;
+  color: #4ade80;
+}
+
+.complete-card p {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.complete-card ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 16px;
+}
+
+.complete-card .topic-covered {
+  padding: 4px 0;
+  color: #4ade80;
+}
+
+.complete-rule {
+  margin-top: 16px;
+  padding: 10px;
+  background: #1e293b;
+  border-radius: 6px;
+  color: #94a3b8;
+  font-style: italic;
+  text-align: center;
+}
+
+.complete-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.complete-buttons .restart-btn,
+.complete-buttons .home-btn {
+  padding: 12px 24px;
+  font-size: 15px;
 }
