@@ -8,6 +8,7 @@ const angryLeadInfo = {
   manuscript: "almost done",
   experience: "second time publishing, didn't have a good experience before",
   budget: "uncertain",
+  personality: "angry",
   responses: {
     greeting: [
       "What do you want?!",
@@ -97,6 +98,7 @@ const happyLeadInfo = {
   manuscript: "done",
   experience: "first time",
   budget: "uncertain",
+  personality: "happy",
   responses: {
     greeting: [
       "Hi there! So nice to meet you!",
@@ -182,6 +184,7 @@ const busyLeadInfo = {
   manuscript: "finished",
   experience: "has published 5 times",
   budget: "he has it",
+  personality: "busy",
   responses: {
     greeting: [
       "Yeah, hi. Make it quick.",
@@ -260,21 +263,12 @@ const busyLeadInfo = {
 
 // ─── KEYWORD MAP WITH PRIORITY + PHRASES ─────────────────────
 const keywordMap = [
-  // HIGH PRIORITY — multi-word phrases (checked first due to high priority)
   {
     phrases: [
-      "speak with an expert",
-      "transfer you",
-      "connect you",
-      "speak to someone",
-      "talk to an expert",
-      "set up a call",
-      "schedule a call",
-      "pass you along",
-      "introduce you to",
-      "put you in touch",
-      "talk to someone",
-      "speak with someone",
+      "speak with an expert", "transfer you", "connect you",
+      "speak to someone", "talk to an expert", "set up a call",
+      "schedule a call", "pass you along", "introduce you to",
+      "put you in touch", "talk to someone", "speak with someone",
       "hand you over",
     ],
     category: "transfer",
@@ -282,40 +276,21 @@ const keywordMap = [
   },
   {
     phrases: [
-      "your manuscript",
-      "your book",
-      "the book",
-      "the manuscript",
-      "finished writing",
-      "done writing",
-      "working on a book",
-      "writing a book",
-      "how far along",
-      "is it finished",
-      "is it done",
-      "is it complete",
-      "how is the book",
-      "status of your book",
-      "book coming along",
-      "still writing",
+      "your manuscript", "your book", "the book", "the manuscript",
+      "finished writing", "done writing", "working on a book",
+      "writing a book", "how far along", "is it finished",
+      "is it done", "is it complete", "how is the book",
+      "status of your book", "book coming along", "still writing",
     ],
     category: "manuscript",
     priority: 90,
   },
   {
     phrases: [
-      "published before",
-      "publishing experience",
-      "first time publishing",
-      "ever published",
-      "your experience",
-      "done this before",
-      "tried publishing",
-      "previous experience",
-      "past experience",
-      "new to publishing",
-      "new to this",
-      "how many books",
+      "published before", "publishing experience", "first time publishing",
+      "ever published", "your experience", "done this before",
+      "tried publishing", "previous experience", "past experience",
+      "new to publishing", "new to this", "how many books",
       "how many times",
     ],
     category: "experience",
@@ -323,174 +298,93 @@ const keywordMap = [
   },
   {
     phrases: [
-      "your budget",
-      "budget for",
-      "how much are you",
-      "willing to invest",
-      "set aside",
-      "price range",
-      "budget in mind",
-      "financial",
-      "afford",
-      "investment",
-      "cost for you",
-      "comfortable spending",
-      "thought about budget",
-      "thought about cost",
-      "have the funds",
-      "have the budget",
+      "your budget", "budget for", "how much are you",
+      "willing to invest", "set aside", "price range",
+      "budget in mind", "financial", "afford", "investment",
+      "cost for you", "comfortable spending", "thought about budget",
+      "thought about cost", "have the funds", "have the budget",
     ],
     category: "budget",
     priority: 90,
   },
   {
     phrases: [
-      "good morning",
-      "good afternoon",
-      "good evening",
-      "how are you",
-      "nice to meet",
-      "my name is",
-      "calling from",
-      "reaching out",
-      "this is",
-      "i am calling",
-      "i'm calling",
+      "good morning", "good afternoon", "good evening",
+      "how are you", "nice to meet", "my name is",
+      "calling from", "reaching out", "this is",
+      "i am calling", "i'm calling",
     ],
     category: "greeting",
     priority: 80,
   },
   {
     phrases: [
-      "publishing industry",
-      "publishing process",
-      "about publishing",
-      "getting published",
-      "interested in publishing",
-      "want to publish",
-      "looking to publish",
-      "publish your",
-      "the publishing",
+      "publishing industry", "publishing process", "about publishing",
+      "getting published", "interested in publishing", "want to publish",
+      "looking to publish", "publish your", "the publishing",
     ],
     category: "publishing",
     priority: 70,
   },
   {
     phrases: [
-      "when are you",
-      "what timeline",
-      "your timeline",
-      "your deadline",
-      "how soon",
-      "when do you",
-      "when would you",
-      "target date",
-      "time frame",
-      "timeframe",
+      "when are you", "what timeline", "your timeline",
+      "your deadline", "how soon", "when do you",
+      "when would you", "target date", "time frame", "timeframe",
     ],
     category: "timeline",
     priority: 70,
   },
   {
     phrases: [
-      "why do you want",
-      "why are you",
-      "what made you",
-      "what inspired",
-      "motivation",
-      "your reason",
-      "reason for",
-      "what drives",
-      "goal with",
+      "why do you want", "why are you", "what made you",
+      "what inspired", "motivation", "your reason",
+      "reason for", "what drives", "goal with",
     ],
     category: "why",
     priority: 70,
   },
   {
     phrases: [
-      "who am i speaking",
-      "what is your name",
-      "who is this",
-      "tell me about yourself",
-      "may i ask who",
-      "your name",
+      "who am i speaking", "what is your name", "who is this",
+      "tell me about yourself", "may i ask who", "your name",
     ],
     category: "who",
     priority: 70,
   },
   {
     phrases: [
-      "can i help",
-      "here to help",
-      "help you",
-      "assist you",
-      "support you",
-      "guide you",
-      "how can i",
-      "what can i do",
-      "let me help",
+      "can i help", "here to help", "help you", "assist you",
+      "support you", "guide you", "how can i",
+      "what can i do", "let me help",
     ],
     category: "help",
     priority: 60,
   },
-  // ACKNOWLEDGE — empathy / understanding phrases
   {
     phrases: [
-      "i understand",
-      "i hear you",
-      "that makes sense",
-      "i appreciate",
-      "thank you for sharing",
-      "thanks for sharing",
-      "sorry to hear",
-      "i can see",
-      "totally understand",
-      "completely understand",
-      "no problem",
-      "no worries",
-      "of course",
-      "that's fair",
-      "thats fair",
-      "fair enough",
-      "i get it",
-      "i get that",
-      "makes sense",
-      "understandable",
-      "thank you",
-      "thanks",
+      "i understand", "i hear you", "that makes sense",
+      "i appreciate", "thank you for sharing", "thanks for sharing",
+      "sorry to hear", "i can see", "totally understand",
+      "completely understand", "no problem", "no worries",
+      "of course", "that's fair", "thats fair", "fair enough",
+      "i get it", "i get that", "makes sense", "understandable",
+      "thank you", "thanks",
     ],
     category: "acknowledge",
     priority: 55,
   },
-  // SELLING detection
   {
     phrases: [
-      "buy",
-      "purchase",
-      "sign up",
-      "signup",
-      "deal",
-      "offer",
-      "package",
-      "discount",
-      "pricing",
-      "our service",
-      "we offer",
-      "we provide",
-      "we can give you",
-      "special price",
-      "limited time",
-      "act now",
-      "great opportunity",
-      "you should buy",
-      "you need to get",
-      "only costs",
-      "just pay",
+      "buy", "purchase", "sign up", "signup", "deal", "offer",
+      "package", "discount", "pricing", "our service", "we offer",
+      "we provide", "we can give you", "special price", "limited time",
+      "act now", "great opportunity", "you should buy",
+      "you need to get", "only costs", "just pay",
     ],
     category: "selling",
     priority: 50,
   },
-  // LOW PRIORITY — single-word fallbacks
   {
     phrases: ["hello", "hey", "hi"],
     category: "greeting",
@@ -538,7 +432,6 @@ const keywordMap = [
   },
 ];
 
-// yes/no handled separately — only on short messages
 const yesPatterns = ["yes", "yeah", "yep", "sure", "absolutely", "correct", "right", "okay", "ok", "yup", "definitely"];
 const noPatterns = ["no", "nope", "never", "nah", "not really", "i dont think so", "i don't think so", "no thanks", "no thank you"];
 
@@ -547,7 +440,6 @@ const detectCategory = (input) => {
   const cleaned = input.toLowerCase().replace(/[^a-z0-9\s']/g, "");
   const wordCount = cleaned.split(/\s+/).length;
 
-  // Short message? Check yes/no first
   if (wordCount <= 5) {
     const isYes = yesPatterns.some(
       (p) => cleaned === p || cleaned.startsWith(p + " ") || cleaned.endsWith(" " + p)
@@ -560,7 +452,6 @@ const detectCategory = (input) => {
     if (isNo) return "no";
   }
 
-  // Score all matches
   let bestMatch = null;
   let bestScore = 0;
 
@@ -579,6 +470,45 @@ const detectCategory = (input) => {
   return bestMatch || "default";
 };
 
+// ─── HINT SUGGESTIONS ────────────────────────────────────────
+const hintSuggestions = {
+  budget: [
+    "Try: 'Do you have a budget in mind for publishing?'",
+    "Try: 'Have you thought about how much you'd like to invest?'",
+    "Try: 'What's your price range for this project?'",
+  ],
+  manuscript: [
+    "Try: 'How is your manuscript coming along?'",
+    "Try: 'Is your book finished or still in progress?'",
+    "Try: 'Tell me about your book — how far along are you?'",
+  ],
+  experience: [
+    "Try: 'Have you published before?'",
+    "Try: 'Is this your first time going through the publishing process?'",
+    "Try: 'What's your experience with publishing?'",
+  ],
+  transfer: [
+    "Try: 'I'd love to connect you with one of our publishing experts.'",
+    "Try: 'Would you be open to speaking with a specialist?'",
+  ],
+  general: [
+    "Start with a warm greeting to build rapport.",
+    "Ask open-ended questions to learn about the lead.",
+    "Show empathy — acknowledge what the lead tells you.",
+  ],
+};
+
+// ─── SCORING HELPERS ─────────────────────────────────────────
+const calculateGrade = (score) => {
+  if (score >= 90) return { letter: "A+", color: "#4ade80" };
+  if (score >= 80) return { letter: "A", color: "#4ade80" };
+  if (score >= 70) return { letter: "B+", color: "#a3e635" };
+  if (score >= 60) return { letter: "B", color: "#facc15" };
+  if (score >= 50) return { letter: "C", color: "#fb923c" };
+  if (score >= 40) return { letter: "D", color: "#f87171" };
+  return { letter: "F", color: "#ef4444" };
+};
+
 // ─── REQUIRED TOPICS FOR TRANSFER ────────────────────────────
 const REQUIRED_TOPICS = ["budget", "manuscript", "experience"];
 
@@ -590,14 +520,25 @@ const Simulation = () => {
   const [coveredTopics, setCoveredTopics] = useState(new Set());
   const [simulationComplete, setSimulationComplete] = useState(false);
   const [sellingWarning, setSellingWarning] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
+  const [moodScore, setMoodScore] = useState(50);
+  const [sellingViolations, setSellingViolations] = useState(0);
+  const [empathyCount, setEmpathyCount] = useState(0);
+  const [startTime, setStartTime] = useState(null);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [showHints, setShowHints] = useState(false);
+  const [categoryLog, setCategoryLog] = useState([]);
+  const [showTranscript, setShowTranscript] = useState(false);
   const chatEnd = useRef(null);
+  const timerRef = useRef(null);
   const navigate = useNavigate();
 
+  // Auto-scroll
   useEffect(() => {
     chatEnd.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, isTyping]);
 
-  // Clear selling warning after 3 seconds
+  // Selling warning auto-dismiss
   useEffect(() => {
     if (sellingWarning) {
       const timer = setTimeout(() => setSellingWarning(false), 3000);
@@ -605,9 +546,97 @@ const Simulation = () => {
     }
   }, [sellingWarning]);
 
+  // Timer
+  useEffect(() => {
+    if (startTime && !simulationComplete) {
+      timerRef.current = setInterval(() => {
+        setElapsedTime(Math.floor((Date.now() - startTime) / 1000));
+      }, 1000);
+      return () => clearInterval(timerRef.current);
+    }
+    if (simulationComplete && timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+  }, [startTime, simulationComplete]);
+
+  const formatTime = (seconds) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m}:${s.toString().padStart(2, "0")}`;
+  };
+
   const getRandomResponse = (responses) => {
     if (!responses || responses.length === 0) return "...";
     return responses[Math.floor(Math.random() * responses.length)];
+  };
+
+  const getMoodEmoji = () => {
+    if (moodScore >= 80) return "😊";
+    if (moodScore >= 60) return "🙂";
+    if (moodScore >= 40) return "😐";
+    if (moodScore >= 20) return "😠";
+    return "🤬";
+  };
+
+  const getMoodLabel = () => {
+    if (moodScore >= 80) return "Very Positive";
+    if (moodScore >= 60) return "Positive";
+    if (moodScore >= 40) return "Neutral";
+    if (moodScore >= 20) return "Negative";
+    return "Very Negative";
+  };
+
+  const getMoodColor = () => {
+    if (moodScore >= 80) return "#4ade80";
+    if (moodScore >= 60) return "#a3e635";
+    if (moodScore >= 40) return "#facc15";
+    if (moodScore >= 20) return "#fb923c";
+    return "#ef4444";
+  };
+
+  const getNextHint = () => {
+    for (const topic of REQUIRED_TOPICS) {
+      if (!coveredTopics.has(topic)) {
+        const hints = hintSuggestions[topic];
+        return hints[Math.floor(Math.random() * hints.length)];
+      }
+    }
+    const allCovered = REQUIRED_TOPICS.every((t) => coveredTopics.has(t));
+    if (allCovered) {
+      const transferHints = hintSuggestions.transfer;
+      return transferHints[Math.floor(Math.random() * transferHints.length)];
+    }
+    const generalHints = hintSuggestions.general;
+    return generalHints[Math.floor(Math.random() * generalHints.length)];
+  };
+
+  const adjustMood = (category) => {
+    let delta = 0;
+    if (category === "acknowledge") delta = 8;
+    else if (category === "greeting") delta = 5;
+    else if (category === "help") delta = 4;
+    else if (category === "selling") delta = -15;
+    else if (category === "default") delta = -3;
+    else if (REQUIRED_TOPICS.includes(category)) delta = 3;
+    else delta = 1;
+
+    setMoodScore((prev) => Math.max(0, Math.min(100, prev + delta)));
+  };
+
+  const calculateFinalScore = () => {
+    let score = 0;
+    const topicsCovered = REQUIRED_TOPICS.filter((t) => coveredTopics.has(t)).length;
+    score += topicsCovered * 20;
+    score += Math.min(empathyCount * 5, 20);
+    score -= sellingViolations * 15;
+    score += moodScore >= 50 ? 10 : 0;
+    score += moodScore >= 70 ? 10 : 0;
+
+    const userMsgCount = messages.filter((m) => m.from === "You").length;
+    if (userMsgCount <= 10) score += 10;
+    else if (userMsgCount <= 15) score += 5;
+
+    return Math.max(0, Math.min(100, score));
   };
 
   const handleSelectLead = (leadInfo) => {
@@ -615,64 +644,98 @@ const Simulation = () => {
     setMessages([{ from: "Lead", text: "Hello? Who's this?" }]);
     setCoveredTopics(new Set());
     setSimulationComplete(false);
+    setSellingWarning(false);
+    setSellingViolations(0);
+    setEmpathyCount(0);
+    setCategoryLog([]);
+    setShowTranscript(false);
+
+    const initialMood = leadInfo.personality === "angry" ? 25 :
+      leadInfo.personality === "happy" ? 75 : 50;
+    setMoodScore(initialMood);
+    setStartTime(Date.now());
+    setElapsedTime(0);
   };
 
   const sendMessage = () => {
-    if (!input.trim() || !selectedLead || simulationComplete) return;
+    if (!input.trim() || !selectedLead || simulationComplete || isTyping) return;
 
     const userText = input.trim();
     const userMessage = { from: "You", text: userText };
-
     const category = detectCategory(userText);
-    console.log("Detected category:", category, "for input:", userText);
 
-    // Track covered topics
+    setCategoryLog((prev) => [...prev, { text: userText, category }]);
+    adjustMood(category);
+
     const newCovered = new Set(coveredTopics);
     if (REQUIRED_TOPICS.includes(category)) {
       newCovered.add(category);
       setCoveredTopics(newCovered);
     }
 
-    // Selling detection
+    if (category === "acknowledge") {
+      setEmpathyCount((prev) => prev + 1);
+    }
+
+    // Selling
     if (category === "selling") {
       setSellingWarning(true);
-      const reply = getRandomResponse(selectedLead.responses.selling);
-      const leadMessage = { from: "Lead", text: reply };
-      setMessages((prev) => [...prev, userMessage, leadMessage]);
+      setSellingViolations((prev) => prev + 1);
+      setMessages((prev) => [...prev, userMessage]);
       setInput("");
+      setIsTyping(true);
+      setTimeout(() => {
+        const reply = getRandomResponse(selectedLead.responses.selling);
+        setMessages((prev) => [...prev, { from: "Lead", text: reply }]);
+        setIsTyping(false);
+      }, 1200);
       return;
     }
 
-    // Transfer logic
+    // Transfer
     if (category === "transfer") {
       const allCovered = REQUIRED_TOPICS.every((t) => newCovered.has(t));
       if (allCovered) {
-        const reply = getRandomResponse(selectedLead.responses.transferReady);
-        const leadMessage = { from: "Lead", text: reply };
-        setMessages((prev) => [...prev, userMessage, leadMessage]);
+        setMessages((prev) => [...prev, userMessage]);
         setInput("");
-        setTimeout(() => setSimulationComplete(true), 1500);
+        setIsTyping(true);
+        setTimeout(() => {
+          const reply = getRandomResponse(selectedLead.responses.transferReady);
+          setMessages((prev) => [...prev, { from: "Lead", text: reply }]);
+          setIsTyping(false);
+          setTimeout(() => setSimulationComplete(true), 1500);
+        }, 1200);
         return;
       } else {
         const missing = REQUIRED_TOPICS.filter((t) => !newCovered.has(t));
         const topicNames = missing.join(", ");
-        const reply = getRandomResponse(selectedLead.responses.transfer);
-        const hint = `(You haven't covered: ${topicNames})`;
-        const leadMessage = { from: "Lead", text: reply };
-        const systemMessage = { from: "System", text: hint };
-        setMessages((prev) => [...prev, userMessage, leadMessage, systemMessage]);
+        setMessages((prev) => [...prev, userMessage]);
         setInput("");
+        setIsTyping(true);
+        setTimeout(() => {
+          const reply = getRandomResponse(selectedLead.responses.transfer);
+          const hint = `(You haven't covered: ${topicNames})`;
+          setMessages((prev) => [
+            ...prev,
+            { from: "Lead", text: reply },
+            { from: "System", text: hint },
+          ]);
+          setIsTyping(false);
+        }, 1200);
         return;
       }
     }
 
-    // Normal response
+    // Normal
     const responseArray = selectedLead.responses[category] || selectedLead.responses.default;
-    const reply = getRandomResponse(responseArray);
-    const leadMessage = { from: "Lead", text: reply };
-
-    setMessages((prev) => [...prev, userMessage, leadMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInput("");
+    setIsTyping(true);
+    setTimeout(() => {
+      const reply = getRandomResponse(responseArray);
+      setMessages((prev) => [...prev, { from: "Lead", text: reply }]);
+      setIsTyping(false);
+    }, 800 + Math.random() * 800);
   };
 
   const handleKeyDown = (e) => {
@@ -685,18 +748,52 @@ const Simulation = () => {
     setCoveredTopics(new Set());
     setSimulationComplete(false);
     setSellingWarning(false);
+    setIsTyping(false);
+    setMoodScore(50);
+    setSellingViolations(0);
+    setEmpathyCount(0);
+    setStartTime(null);
+    setElapsedTime(0);
+    setShowHints(false);
+    setCategoryLog([]);
+    setShowTranscript(false);
     setInput("");
+    if (timerRef.current) clearInterval(timerRef.current);
   };
 
   // ─── SIMULATION COMPLETE SCREEN ──────────────────────────
   if (simulationComplete) {
+    const finalScore = calculateFinalScore();
+    const grade = calculateGrade(finalScore);
+    const userMsgCount = messages.filter((m) => m.from === "You").length;
+
     return (
       <div className="sim-complete">
         <h1>✅ Simulation Complete</h1>
+
         <div className="complete-card">
+          <div className="grade-display">
+            <div className="grade-circle" style={{ borderColor: grade.color }}>
+              <span className="grade-letter" style={{ color: grade.color }}>
+                {grade.letter}
+              </span>
+            </div>
+            <p className="grade-score">{finalScore}/100</p>
+          </div>
+
           <h2>Summary</h2>
-          <p><strong>Lead:</strong> {selectedLead.name}</p>
-          <p><strong>Topics Covered:</strong></p>
+          <p><strong>Lead:</strong> {selectedLead.name} ({selectedLead.personality})</p>
+          <p><strong>Time:</strong> {formatTime(elapsedTime)}</p>
+          <p><strong>Messages sent:</strong> {userMsgCount}</p>
+          <p><strong>Empathy moments:</strong> {empathyCount}</p>
+          <p><strong>Selling violations:</strong>
+            <span style={{ color: sellingViolations > 0 ? "#ef4444" : "#4ade80" }}>
+              {" "}{sellingViolations}
+            </span>
+          </p>
+          <p><strong>Final mood:</strong> {getMoodEmoji()} {getMoodLabel()}</p>
+
+          <p style={{ marginTop: "12px" }}><strong>Topics Covered:</strong></p>
           <ul>
             {REQUIRED_TOPICS.map((topic) => (
               <li key={topic} className="topic-covered">
@@ -704,9 +801,31 @@ const Simulation = () => {
               </li>
             ))}
           </ul>
-          <p><strong>Messages exchanged:</strong> {messages.length}</p>
+
           <p className="complete-rule">Rule #1: Qualify the lead. Don't sell. ✔</p>
+
+          {/* Transcript Toggle */}
+          <button
+            className="transcript-toggle"
+            onClick={() => setShowTranscript(!showTranscript)}
+          >
+            {showTranscript ? "Hide" : "Show"} Message Breakdown
+          </button>
+
+          {showTranscript && (
+            <div className="transcript-section">
+              {categoryLog.map((entry, i) => (
+                <div key={i} className="transcript-entry">
+                  <span className="transcript-msg">"{entry.text}"</span>
+                  <span className={`transcript-cat cat-${entry.category}`}>
+                    {entry.category}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
+
         <div className="complete-buttons">
           <button className="restart-btn" onClick={handleRestart}>Try Another Lead</button>
           <button className="home-btn" onClick={() => navigate("/")}>Go Home</button>
@@ -730,12 +849,34 @@ const Simulation = () => {
 
         {selectedLead && (
           <>
+            {/* Timer */}
+            <div className="timer-display">
+              ⏱️ {formatTime(elapsedTime)}
+            </div>
+
             <div className="lead-info">
               <h2>📋 Lead Info</h2>
               <p><strong>Name:</strong> {selectedLead.name}</p>
               <p><strong>Manuscript:</strong> {selectedLead.manuscript}</p>
               <p><strong>Experience:</strong> {selectedLead.experience}</p>
               <p><strong>Budget:</strong> {selectedLead.budget}</p>
+            </div>
+
+            {/* Mood Meter */}
+            <div className="mood-meter">
+              <h3>Lead Mood {getMoodEmoji()}</h3>
+              <div className="mood-bar-container">
+                <div
+                  className="mood-bar-fill"
+                  style={{
+                    width: `${moodScore}%`,
+                    backgroundColor: getMoodColor(),
+                  }}
+                />
+              </div>
+              <p className="mood-label" style={{ color: getMoodColor() }}>
+                {getMoodLabel()}
+              </p>
             </div>
 
             <div className="topic-tracker">
@@ -749,6 +890,19 @@ const Simulation = () => {
             </div>
 
             <hr />
+
+            {/* Hint Toggle */}
+            <button
+              className="hint-toggle-btn"
+              onClick={() => setShowHints(!showHints)}
+            >
+              {showHints ? "🙈 Hide Hints" : "💡 Show Hints"}
+            </button>
+            {showHints && (
+              <div className="hint-box">
+                <p>{getNextHint()}</p>
+              </div>
+            )}
           </>
         )}
 
@@ -781,6 +935,16 @@ const Simulation = () => {
               <p>{message.text}</p>
             </div>
           ))}
+          {isTyping && (
+            <div className="bubble lead typing-bubble">
+              <span className="label">Lead</span>
+              <div className="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          )}
           {sellingWarning && (
             <div className="selling-warning">
               ⚠️ Warning: You're selling, not qualifying! Remember Rule #1.
@@ -799,11 +963,13 @@ const Simulation = () => {
                 ? "Select a lead first..."
                 : simulationComplete
                 ? "Simulation complete!"
+                : isTyping
+                ? "Lead is typing..."
                 : "Type your message..."
             }
-            disabled={!selectedLead || simulationComplete}
+            disabled={!selectedLead || simulationComplete || isTyping}
           />
-          <button onClick={sendMessage} disabled={!selectedLead || simulationComplete}>
+          <button onClick={sendMessage} disabled={!selectedLead || simulationComplete || isTyping}>
             Send
           </button>
         </div>
