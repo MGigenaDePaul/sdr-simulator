@@ -69,7 +69,7 @@ const busyLeadInfo = {
 };
 
 const keywordMap = [
-  { keywords: ["hi", "hello", "hey", "this is", "good morning", "good afternoon"], category: "greeting" },
+  { keywords: ["hi", "hello", "hey", "this", "good morning", "good afternoon"], category: "greeting" },
   { keywords: ["budget", "money", "afford", "cost", "invest", "pay"], category: "budget" },
   { keywords: ["book", "manuscript", "writing", "written", "draft"], category: "manuscript" },
   { keywords: ["experience", "published", "before", "past", "previous"], category: "experience" },
