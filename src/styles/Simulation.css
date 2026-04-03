@@ -47,6 +47,12 @@
   color: #aaa;
 }
 
+.sim-left-image {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
 .select-lead-text {
   font-size: 20px;
   margin-bottom: 20px;
@@ -245,8 +251,8 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  color: #555;
-  font-size: 16px;
+  color: #c9c8c8;
+  font-size: 20px;
 }
 
 /* ─── BUBBLES ─── */
@@ -570,4 +576,34 @@
 .complete-buttons .home-btn {
   padding: 12px 24px;
   font-size: 15px;
+}
+
+
+.lead-types .angry-button {
+  color: #ffff;
+  background-color: #c71f1f;
+}
+
+.lead-types .angry-button:hover {
+  color: #ffff;
+  background-color: #e71e1e;
+}
+
+.lead-types .happy-button{
+  color: #ffff;
+  background-color: #316e0d;
+}
+
+.lead-types .happy-button:hover{
+  color: #ffff;
+  background-color: #449c12;
+}
+
+.lead-types .busy-button {
+  color: #ffff;
+  background-color: #b8820e ;
+}
+.lead-types .busy-button:hover {
+  color: #ffff;
+  background-color: #dd9f1a ;
 }

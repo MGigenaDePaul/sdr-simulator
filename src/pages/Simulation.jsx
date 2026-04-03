@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import SimLeftImage  from "../assets/simLeft.jpg"
 import "../styles/Simulation.css";
 
 // ─── LEAD DATA ───────────────────────────────────────────────
@@ -458,7 +459,7 @@ const detectCategory = (input) => {
   for (const entry of keywordMap) {
     for (const phrase of entry.phrases) {
       if (cleaned.includes(phrase)) {
-        const score = entry.priority + phrase.length;
+        const score = entry.priority + phrase.length; // scoring formula = priority + phrase.length
         if (score > bestScore) {
           bestScore = score;
           bestMatch = entry.category;
@@ -517,7 +518,7 @@ const Simulation = () => {
   const [messages, setMessages] = useState([]);
   const [selectedLead, setSelectedLead] = useState(null);
   const [input, setInput] = useState("");
-  const [coveredTopics, setCoveredTopics] = useState(new Set());
+  const [coveredTopics, setCoveredTopics] = useState(new Set()); 
   const [simulationComplete, setSimulationComplete] = useState(false);
   const [sellingWarning, setSellingWarning] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
@@ -838,12 +839,12 @@ const Simulation = () => {
   return (
     <div className="sim-container fade-in">
       <div className="sim-left">
-        <p className="select-lead-text">Select a type of lead</p>
+        <p className="select-lead-text"><b>Select a type of lead</b>  </p>
         {!selectedLead && (
           <div className="lead-types">
-            <button onClick={() => handleSelectLead(angryLeadInfo)}>😠 Angry</button>
-            <button onClick={() => handleSelectLead(happyLeadInfo)}>😊 Happy</button>
-            <button onClick={() => handleSelectLead(busyLeadInfo)}>⏰ Busy</button>
+            <button className='angry-button' onClick={() => handleSelectLead(angryLeadInfo)}><b>Angry</b></button>
+            <button className='happy-button' onClick={() => handleSelectLead(happyLeadInfo)}><b>Happy</b></button>
+            <button className='busy-button' onClick={() => handleSelectLead(busyLeadInfo)}><b>Busy</b></button>
           </div>
         )}
 
@@ -906,7 +907,7 @@ const Simulation = () => {
           </>
         )}
 
-        <h3>🎯 Objective</h3>
+        <h3>Objective</h3>
         <p className="objective-text">
           Qualify the lead by covering all topics, then transfer to an expert.
         </p>
@@ -921,7 +922,7 @@ const Simulation = () => {
         <div className="chat-box">
           {!selectedLead && (
             <div className="chat-placeholder">
-              <p>👈 Select a lead to begin the conversation</p>
+              <p><b>Select a lead to begin the conversation</b></p>
             </div>
           )}
           {messages.map((message, i) => (
