@@ -470,34 +470,6 @@ const detectCategory = (input) => {
   return bestMatch || "default";
 };
 
-// ─── HINT SUGGESTIONS ────────────────────────────────────────
-const hintSuggestions = {
-  budget: [
-    "Try: 'Do you have a budget in mind for publishing?'",
-    "Try: 'Have you thought about how much you'd like to invest?'",
-    "Try: 'What's your price range for this project?'",
-  ],
-  manuscript: [
-    "Try: 'How is your manuscript coming along?'",
-    "Try: 'Is your book finished or still in progress?'",
-    "Try: 'Tell me about your book — how far along are you?'",
-  ],
-  experience: [
-    "Try: 'Have you published before?'",
-    "Try: 'Is this your first time going through the publishing process?'",
-    "Try: 'What's your experience with publishing?'",
-  ],
-  transfer: [
-    "Try: 'I'd love to connect you with one of our publishing experts.'",
-    "Try: 'Would you be open to speaking with a specialist?'",
-  ],
-  general: [
-    "Start with a warm greeting to build rapport.",
-    "Ask open-ended questions to learn about the lead.",
-    "Show empathy — acknowledge what the lead tells you.",
-  ],
-};
-
 // ─── REQUIRED TOPICS FOR TRANSFER ────────────────────────────
 const REQUIRED_TOPICS = ["budget", "manuscript", "experience"];
 
@@ -515,7 +487,6 @@ const Simulation = () => {
   const [empathyCount, setEmpathyCount] = useState(0);
   const [startTime, setStartTime] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
-  const [showHints, setShowHints] = useState(false);
   const [categoryLog, setCategoryLog] = useState([]);
   const chatEnd = useRef(null);
   const timerRef = useRef(null);
@@ -572,22 +543,6 @@ const Simulation = () => {
     if (moodScore >= 40) return "#facc15";
     if (moodScore >= 20) return "#fb923c";
     return "#ef4444";
-  };
-
-  const getNextHint = () => {
-    for (const topic of REQUIRED_TOPICS) {
-      if (!coveredTopics.has(topic)) {
-        const hints = hintSuggestions[topic];
-        return hints[Math.floor(Math.random() * hints.length)];
-      }
-    }
-    const allCovered = REQUIRED_TOPICS.every((t) => coveredTopics.has(t));
-    if (allCovered) {
-      const transferHints = hintSuggestions.transfer;
-      return transferHints[Math.floor(Math.random() * transferHints.length)];
-    }
-    const generalHints = hintSuggestions.general;
-    return generalHints[Math.floor(Math.random() * generalHints.length)];
   };
 
   const adjustMood = (category) => {
@@ -717,7 +672,6 @@ const Simulation = () => {
     setEmpathyCount(0);
     setStartTime(null);
     setElapsedTime(0);
-    setShowHints(false);
     setCategoryLog([]);
     setInput("");
     if (timerRef.current) clearInterval(timerRef.current);
@@ -767,18 +721,6 @@ const Simulation = () => {
             </div>
 
             <hr />
-
-            <button
-              className="hint-toggle-btn"
-              onClick={() => setShowHints(!showHints)}
-            >
-              {showHints ? "Hide Hints" : "Show Hints"}
-            </button>
-            {showHints && (
-              <div className="hint-box">
-                <p>{getNextHint()}</p>
-              </div>
-            )}
           </>
         )}
 
