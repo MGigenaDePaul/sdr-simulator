@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import SimLeftImage  from "../assets/simLeft.jpg"
 import "../styles/Simulation.css";
 
 // ─── LEAD DATA ───────────────────────────────────────────────
@@ -459,7 +458,7 @@ const detectCategory = (input) => {
   for (const entry of keywordMap) {
     for (const phrase of entry.phrases) {
       if (cleaned.includes(phrase)) {
-        const score = entry.priority + phrase.length; // scoring formula = priority + phrase.length
+        const score = entry.priority + phrase.length;
         if (score > bestScore) {
           bestScore = score;
           bestMatch = entry.category;
@@ -499,17 +498,6 @@ const hintSuggestions = {
   ],
 };
 
-// ─── SCORING HELPERS ─────────────────────────────────────────
-const calculateGrade = (score) => {
-  if (score >= 90) return { letter: "A+", color: "#4ade80" };
-  if (score >= 80) return { letter: "A", color: "#4ade80" };
-  if (score >= 70) return { letter: "B+", color: "#a3e635" };
-  if (score >= 60) return { letter: "B", color: "#facc15" };
-  if (score >= 50) return { letter: "C", color: "#fb923c" };
-  if (score >= 40) return { letter: "D", color: "#f87171" };
-  return { letter: "F", color: "#ef4444" };
-};
-
 // ─── REQUIRED TOPICS FOR TRANSFER ────────────────────────────
 const REQUIRED_TOPICS = ["budget", "manuscript", "experience"];
 
@@ -518,7 +506,7 @@ const Simulation = () => {
   const [messages, setMessages] = useState([]);
   const [selectedLead, setSelectedLead] = useState(null);
   const [input, setInput] = useState("");
-  const [coveredTopics, setCoveredTopics] = useState(new Set()); 
+  const [coveredTopics, setCoveredTopics] = useState(new Set());
   const [simulationComplete, setSimulationComplete] = useState(false);
   const [sellingWarning, setSellingWarning] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
@@ -529,7 +517,6 @@ const Simulation = () => {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [showHints, setShowHints] = useState(false);
   const [categoryLog, setCategoryLog] = useState([]);
-  const [showTranscript, setShowTranscript] = useState(false);
   const chatEnd = useRef(null);
   const timerRef = useRef(null);
   const navigate = useNavigate();
@@ -569,14 +556,6 @@ const Simulation = () => {
   const getRandomResponse = (responses) => {
     if (!responses || responses.length === 0) return "...";
     return responses[Math.floor(Math.random() * responses.length)];
-  };
-
-  const getMoodEmoji = () => {
-    if (moodScore >= 80) return "😊";
-    if (moodScore >= 60) return "🙂";
-    if (moodScore >= 40) return "😐";
-    if (moodScore >= 20) return "😠";
-    return "🤬";
   };
 
   const getMoodLabel = () => {
@@ -624,22 +603,6 @@ const Simulation = () => {
     setMoodScore((prev) => Math.max(0, Math.min(100, prev + delta)));
   };
 
-  const calculateFinalScore = () => {
-    let score = 0;
-    const topicsCovered = REQUIRED_TOPICS.filter((t) => coveredTopics.has(t)).length;
-    score += topicsCovered * 20;
-    score += Math.min(empathyCount * 5, 20);
-    score -= sellingViolations * 15;
-    score += moodScore >= 50 ? 10 : 0;
-    score += moodScore >= 70 ? 10 : 0;
-
-    const userMsgCount = messages.filter((m) => m.from === "You").length;
-    if (userMsgCount <= 10) score += 10;
-    else if (userMsgCount <= 15) score += 5;
-
-    return Math.max(0, Math.min(100, score));
-  };
-
   const handleSelectLead = (leadInfo) => {
     setSelectedLead(leadInfo);
     setMessages([{ from: "Lead", text: "Hello? Who's this?" }]);
@@ -649,7 +612,6 @@ const Simulation = () => {
     setSellingViolations(0);
     setEmpathyCount(0);
     setCategoryLog([]);
-    setShowTranscript(false);
 
     const initialMood = leadInfo.personality === "angry" ? 25 :
       leadInfo.personality === "happy" ? 75 : 50;
@@ -757,115 +719,39 @@ const Simulation = () => {
     setElapsedTime(0);
     setShowHints(false);
     setCategoryLog([]);
-    setShowTranscript(false);
     setInput("");
     if (timerRef.current) clearInterval(timerRef.current);
   };
-
-  // ─── SIMULATION COMPLETE SCREEN ──────────────────────────
-  if (simulationComplete) {
-    const finalScore = calculateFinalScore();
-    const grade = calculateGrade(finalScore);
-    const userMsgCount = messages.filter((m) => m.from === "You").length;
-
-    return (
-      <div className="sim-complete">
-        <h1>✅ Simulation Complete</h1>
-
-        <div className="complete-card">
-          <div className="grade-display">
-            <div className="grade-circle" style={{ borderColor: grade.color }}>
-              <span className="grade-letter" style={{ color: grade.color }}>
-                {grade.letter}
-              </span>
-            </div>
-            <p className="grade-score">{finalScore}/100</p>
-          </div>
-
-          <h2>Summary</h2>
-          <p><strong>Lead:</strong> {selectedLead.name} ({selectedLead.personality})</p>
-          <p><strong>Time:</strong> {formatTime(elapsedTime)}</p>
-          <p><strong>Messages sent:</strong> {userMsgCount}</p>
-          <p><strong>Empathy moments:</strong> {empathyCount}</p>
-          <p><strong>Selling violations:</strong>
-            <span style={{ color: sellingViolations > 0 ? "#ef4444" : "#4ade80" }}>
-              {" "}{sellingViolations}
-            </span>
-          </p>
-          <p><strong>Final mood:</strong> {getMoodEmoji()} {getMoodLabel()}</p>
-
-          <p style={{ marginTop: "12px" }}><strong>Topics Covered:</strong></p>
-          <ul>
-            {REQUIRED_TOPICS.map((topic) => (
-              <li key={topic} className="topic-covered">
-                ✅ {topic.charAt(0).toUpperCase() + topic.slice(1)}
-              </li>
-            ))}
-          </ul>
-
-          <p className="complete-rule">Rule #1: Qualify the lead. Don't sell. ✔</p>
-
-          {/* Transcript Toggle */}
-          <button
-            className="transcript-toggle"
-            onClick={() => setShowTranscript(!showTranscript)}
-          >
-            {showTranscript ? "Hide" : "Show"} Message Breakdown
-          </button>
-
-          {showTranscript && (
-            <div className="transcript-section">
-              {categoryLog.map((entry, i) => (
-                <div key={i} className="transcript-entry">
-                  <span className="transcript-msg">"{entry.text}"</span>
-                  <span className={`transcript-cat cat-${entry.category}`}>
-                    {entry.category}
-                  </span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <div className="complete-buttons">
-          <button className="restart-btn" onClick={handleRestart}>Try Another Lead</button>
-          <button className="home-btn" onClick={() => navigate("/")}>Go Home</button>
-        </div>
-      </div>
-    );
-  }
 
   // ─── MAIN RENDER ───────────────────────────────────────────
   return (
     <div className="sim-container fade-in">
       <div className="sim-left">
-        <p className="select-lead-text"><b>Select a type of lead</b>  </p>
+        <p className="select-lead-text"><b>Select a type of lead</b></p>
         {!selectedLead && (
           <div className="lead-types">
-            <button className='angry-button' onClick={() => handleSelectLead(angryLeadInfo)}><b>Angry</b></button>
-            <button className='happy-button' onClick={() => handleSelectLead(happyLeadInfo)}><b>Happy</b></button>
-            <button className='busy-button' onClick={() => handleSelectLead(busyLeadInfo)}><b>Busy</b></button>
+            <button className="angry-button" onClick={() => handleSelectLead(angryLeadInfo)}><b>Angry</b></button>
+            <button className="happy-button" onClick={() => handleSelectLead(happyLeadInfo)}><b>Happy</b></button>
+            <button className="busy-button" onClick={() => handleSelectLead(busyLeadInfo)}><b>Busy</b></button>
           </div>
         )}
 
         {selectedLead && (
           <>
-            {/* Timer */}
             <div className="timer-display">
-              ⏱️ {formatTime(elapsedTime)}
+              {formatTime(elapsedTime)}
             </div>
 
             <div className="lead-info">
-              <h2>📋 Lead Info</h2>
+              <h2>Lead Info</h2>
               <p><strong>Name:</strong> {selectedLead.name}</p>
               <p><strong>Manuscript:</strong> {selectedLead.manuscript}</p>
               <p><strong>Experience:</strong> {selectedLead.experience}</p>
               <p><strong>Budget:</strong> {selectedLead.budget}</p>
             </div>
 
-            {/* Mood Meter */}
             <div className="mood-meter">
-              <h3>Lead Mood {getMoodEmoji()}</h3>
+              <h3>Lead Mood</h3>
               <div className="mood-bar-container">
                 <div
                   className="mood-bar-fill"
@@ -880,24 +766,13 @@ const Simulation = () => {
               </p>
             </div>
 
-            <div className="topic-tracker">
-              <h3>📝 Topics to Cover</h3>
-              {REQUIRED_TOPICS.map((topic) => (
-                <p key={topic} className={`topic-item ${coveredTopics.has(topic) ? "covered" : ""}`}>
-                  {coveredTopics.has(topic) ? "✅" : "⬜"}{" "}
-                  {topic.charAt(0).toUpperCase() + topic.slice(1)}
-                </p>
-              ))}
-            </div>
-
             <hr />
 
-            {/* Hint Toggle */}
             <button
               className="hint-toggle-btn"
               onClick={() => setShowHints(!showHints)}
             >
-              {showHints ? "🙈 Hide Hints" : "💡 Show Hints"}
+              {showHints ? "Hide Hints" : "Show Hints"}
             </button>
             {showHints && (
               <div className="hint-box">
@@ -909,11 +784,11 @@ const Simulation = () => {
 
         <h3>Objective</h3>
         <p className="objective-text">
-          Qualify the lead by covering all topics, then transfer to an expert.
+          Qualify the lead by covering <strong>budget</strong>, <strong>manuscript</strong>, and <strong>experience</strong> — then transfer to an expert.
         </p>
 
         {selectedLead && (
-          <button className="restart-btn" onClick={handleRestart}>🔄 Restart</button>
+          <button className="restart-btn" onClick={handleRestart}>Restart</button>
         )}
         <button className="home-btn" onClick={() => navigate("/")}>Go to home</button>
       </div>
@@ -948,7 +823,7 @@ const Simulation = () => {
           )}
           {sellingWarning && (
             <div className="selling-warning">
-              ⚠️ Warning: You're selling, not qualifying! Remember Rule #1.
+              Warning: You're selling, not qualifying! Remember Rule #1.
             </div>
           )}
           <div ref={chatEnd} />
