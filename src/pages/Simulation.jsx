@@ -102,8 +102,8 @@ const happyLeadInfo = {
   responses: {
     greeting: [
       "Hi there! So nice to meet you!",
-      "Hello! I'm so excited to talk!",
-      "Hey! Thanks for reaching out!",
+      "Hello! How are you?!",
+      "Hey Mike! How u doing!",
     ],
     budget: [
       "I haven't really thought about that yet.",
@@ -482,7 +482,6 @@ const Simulation = () => {
   const [simulationComplete, setSimulationComplete] = useState(false);
   const [sellingWarning, setSellingWarning] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
-  const [moodScore, setMoodScore] = useState(50);
   const [sellingViolations, setSellingViolations] = useState(0);
   const [empathyCount, setEmpathyCount] = useState(0);
   const [startTime, setStartTime] = useState(null);
@@ -529,35 +528,6 @@ const Simulation = () => {
     return responses[Math.floor(Math.random() * responses.length)];
   };
 
-  const getMoodLabel = () => {
-    if (moodScore >= 80) return "Very Positive";
-    if (moodScore >= 60) return "Positive";
-    if (moodScore >= 40) return "Neutral";
-    if (moodScore >= 20) return "Negative";
-    return "Very Negative";
-  };
-
-  const getMoodColor = () => {
-    if (moodScore >= 80) return "#4ade80";
-    if (moodScore >= 60) return "#a3e635";
-    if (moodScore >= 40) return "#facc15";
-    if (moodScore >= 20) return "#fb923c";
-    return "#ef4444";
-  };
-
-  const adjustMood = (category) => {
-    let delta = 0;
-    if (category === "acknowledge") delta = 8;
-    else if (category === "greeting") delta = 5;
-    else if (category === "help") delta = 4;
-    else if (category === "selling") delta = -15;
-    else if (category === "default") delta = -3;
-    else if (REQUIRED_TOPICS.includes(category)) delta = 3;
-    else delta = 1;
-
-    setMoodScore((prev) => Math.max(0, Math.min(100, prev + delta)));
-  };
-
   const handleSelectLead = (leadInfo) => {
     setSelectedLead(leadInfo);
     setMessages([{ from: "Lead", text: "Hello? Who's this?" }]);
@@ -567,10 +537,6 @@ const Simulation = () => {
     setSellingViolations(0);
     setEmpathyCount(0);
     setCategoryLog([]);
-
-    const initialMood = leadInfo.personality === "angry" ? 25 :
-      leadInfo.personality === "happy" ? 75 : 50;
-    setMoodScore(initialMood);
     setStartTime(Date.now());
     setElapsedTime(0);
   };
@@ -583,7 +549,6 @@ const Simulation = () => {
     const category = detectCategory(userText);
 
     setCategoryLog((prev) => [...prev, { text: userText, category }]);
-    adjustMood(category);
 
     const newCovered = new Set(coveredTopics);
     if (REQUIRED_TOPICS.includes(category)) {
@@ -667,7 +632,6 @@ const Simulation = () => {
     setSimulationComplete(false);
     setSellingWarning(false);
     setIsTyping(false);
-    setMoodScore(50);
     setSellingViolations(0);
     setEmpathyCount(0);
     setStartTime(null);
@@ -702,22 +666,6 @@ const Simulation = () => {
               <p><strong>Manuscript:</strong> {selectedLead.manuscript}</p>
               <p><strong>Experience:</strong> {selectedLead.experience}</p>
               <p><strong>Budget:</strong> {selectedLead.budget}</p>
-            </div>
-
-            <div className="mood-meter">
-              <h3>Lead Mood</h3>
-              <div className="mood-bar-container">
-                <div
-                  className="mood-bar-fill"
-                  style={{
-                    width: `${moodScore}%`,
-                    backgroundColor: getMoodColor(),
-                  }}
-                />
-              </div>
-              <p className="mood-label" style={{ color: getMoodColor() }}>
-                {getMoodLabel()}
-              </p>
             </div>
 
             <hr />
