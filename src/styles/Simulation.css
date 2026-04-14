@@ -81,6 +81,46 @@
   filter: brightness(110%);
 }
 
+.sim-lead-info {
+  border: 2px solid blue;
+  padding: 10px;
+  height: 250px;
+  width: 250px;
+  position: absolute;
+  bottom: 400px;
+  left: 40px;
+}
+
+.sim-lead-info h3 {
+  font-size: 30px;
+  padding: 5px;
+}                                                                                               
+
+.sim-lead-info p {
+  margin: 8px 0 0 0;
+  padding: 5px;
+}
+
+.sim-lead-info button {
+  position: absolute;
+  padding: 3px 2px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-family: sans-serif;
+  color: #ffff;
+  background: hsl(345deg 100% 47%);
+  cursor: pointer;
+  width: 180px;
+  height: 30px;
+  transition: 0.3s ease;
+  margin-top: 20px;
+}
+
+.sim-lead-info button:hover {
+  filter: brightness(110%);
+}
+
 
 
 
