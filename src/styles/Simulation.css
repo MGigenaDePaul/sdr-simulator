@@ -8,9 +8,9 @@
 }
 
 .simulator .sim-typeOfLead {
-  width: 50vw;
+  width: 100%;
   padding: 10px;
-  color: #ffff;
+  color: #fff;
   margin: auto;
 }
 
@@ -61,14 +61,12 @@
 
 .home-button {
   position: absolute;
-  bottom: 60px;
-  left: 40px;
   padding: 8px 16px;
   border: none;
   border-radius: 12px;
   font-size: 1.1rem;
   font-family: sans-serif;
-  color: #ffff;
+  color: #fff;
   background: hsl(345deg 100% 47%);
   cursor: pointer;
   width: 115px;
@@ -78,24 +76,32 @@
 }
 
 .home-button:hover {
-  filter: brightness(110%);
+  filter: brightness(130%);
+}
+
+.sim-container-lead-info-and-chat-box {
+  display: flex;
+  border: 2px solid orange;
+  padding: 10px;
+  height: 70vh;
+  align-items: center;
+  gap: 15px;
 }
 
 .sim-lead-info {
-  background-color: rgb(180, 29, 29);
+  position: relative;
+  background-color: #0276FF;
   border-radius: 18px;
   padding: 10px;
   height: 250px;
-  width: 260px;
-  position: relative;
-  top: 50%;
-  right: 50%;
+  width: 260px; 
+  flex-shrink: 0;
 }
 
 .sim-lead-info h3 {
   font-size: 30px;
   padding: 5px;
-
+  margin-bottom: 10px;
 }                                                                                               
 
 .sim-lead-info p {
@@ -106,22 +112,30 @@
 
 .sim-lead-info button {
   position: absolute;
-  padding: 3px 2px;
+  padding: 5px 4px;
   border: none;
   border-radius: 10px;
   font-size: 1.1rem;
   font-family: sans-serif;
-  color: #ffff;
-  background: hsl(345deg 100% 47%);
+  color: #fff;
+  background: hsl(234, 75%, 35%);
   cursor: pointer;
   width: 180px;
   height: 30px;
   transition: 0.3s ease;
-  transform: translateY(200%)
+  bottom: 10px;
 }
 
 .sim-lead-info button:hover {
-  filter: brightness(110%);
+  filter: brightness(130%);
+}
+
+.chat-box {
+  margin: 5px;
+  border: 2px solid pink;
+  padding: 10px;
+  flex-grow: 1;
+  height: 100%;
 }
 
 

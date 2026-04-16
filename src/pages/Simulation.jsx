@@ -5,7 +5,7 @@ import "../styles/Simulation.css";
 const angryLeadInfo = {
   mood: 'Angry',
   name: 'Mariano',
-  manuscript: 'Uncertain',
+  manuscript: 'almost done!',
 }
 
 const Simulation = () => {
@@ -15,7 +15,6 @@ const Simulation = () => {
   return (
     <div className='simulator'>
       <div className='sim-typeOfLead'>
-        
         <div>
           {!selectedLead && (
             <div>
@@ -29,12 +28,15 @@ const Simulation = () => {
           )}
 
           {selectedLead && (
-            <div>
+            <div className='sim-container-lead-info-and-chat-box'>
               <div className='sim-lead-info'>
                 <h3>{selectedLead.mood} lead info</h3>
                 <p><b>Name:</b> {selectedLead.name}</p>
                 <p><b>Manuscript:</b> {selectedLead.manuscript}</p>
                 <button onClick={() => setSelectedLead(null)}>Choose another lead</button>
+              </div>
+              <div className='chat-box'>
+                <p>esta es la chatbox</p>
               </div>
             </div>
           )}
