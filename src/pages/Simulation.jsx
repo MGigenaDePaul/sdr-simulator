@@ -6,12 +6,29 @@ const angryLeadInfo = {
   mood: 'Angry',
   name: 'Mariano',
   manuscript: 'almost done!',
+  responses: {
+    greeting: [
+      'Hello, who is this?'
+    ]
+  }
 }
 
 const Simulation = () => {
   const navigate = useNavigate();
   const [selectedLead, setSelectedLead] = useState(null);
-  
+  const [input, setInput] = useState('');
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    if (selectedLead !== null) {
+      setMessages([{
+        role: 'lead', content: `${selectedLead.responses.greeting}`
+      }])
+    } else {
+      setMessages([]);
+    }
+  }, [selectedLead])
+
   return (
     <div className='simulator'>
       <div className='sim-typeOfLead'>
@@ -36,7 +53,18 @@ const Simulation = () => {
                 <button onClick={() => setSelectedLead(null)}>Choose another lead</button>
               </div>
               <div className='chat-box'>
-                <p>esta es la chatbox</p>
+                <div className='message-area'>
+                  <div className='message-lead'>
+                  {selectedLead.responses.greeting}
+                  </div>
+                  <div className='message-user'>
+                  yeahh
+                  </div>
+                </div>
+                <div className='input-area'>
+                  <input className='input' value={input} onChange={(event) => setInput(event.target.value)} placeholder='Type here'/>
+                  <button className='enter-button'>enter</button>
+                </div>
               </div>
             </div>
           )}

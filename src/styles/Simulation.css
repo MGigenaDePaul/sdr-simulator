@@ -79,9 +79,10 @@
   filter: brightness(130%);
 }
 
+
 .sim-container-lead-info-and-chat-box {
   display: flex;
-  border: 2px solid orange;
+  /* border: 2px solid orange; */
   padding: 10px;
   height: 70vh;
   align-items: center;
@@ -131,12 +132,77 @@
 }
 
 .chat-box {
+  display: flex;
+  flex-direction: column;
   margin: 5px;
-  border: 2px solid pink;
   padding: 10px;
   flex-grow: 1;
   height: 100%;
+  gap: 10px;
 }
+
+.message-area {
+  flex-grow: 1;
+  padding: 10px;
+  /* border: 2px solid white; */
+  background-color:#7a0025;
+  flex-direction: column;
+  display: flex;
+}
+
+.message-lead {
+  border: 2px solid pink;
+  max-width: 60%;
+  width: fit-content
+}
+
+.message-user {
+  border: 2px solid orange;
+  width: 100px;
+  align-self: flex-end;
+  max-width: 60%;
+  width: fit-content
+}
+
+.input-area {
+  height: 40px;
+  display: flex;
+}
+
+.input{
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  text-decoration: none;
+  background-color: rgb(23, 99, 185);
+  outline: none;
+  border: none;
+  color: #fff;
+  font-size: 15px;
+  transition: 0.6s ease;
+}
+
+.input:hover {
+  background-color: #0276FF;
+}
+
+.input::placeholder {
+  color: #fff;
+}
+
+.enter-button {
+  background-color:rgb(0, 119, 255);
+  color: #fff;
+  width: 70px;
+  height: 100%;
+  border: none;
+  
+}
+
+
+
+
+
 
 
 
