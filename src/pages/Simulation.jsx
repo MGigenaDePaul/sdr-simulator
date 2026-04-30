@@ -79,8 +79,8 @@ const Simulation = () => {
               <h2>Choose a type of lead</h2>
               <div className='sim-lead-buttons'>
                 <button onClick={() => setSelectedLead(angryLeadInfo)}>angry</button>
-                <button>happy</button>
-                <button>busy</button>
+                <button onClick={() => setSelectedLead(happyLeadInfo)}>happy</button>
+                <button onClick={() => setSelectedLead(busyLeadInfo)}>busy</button>
               </div>
             </div>
           )}
