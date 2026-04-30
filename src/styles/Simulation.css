@@ -144,16 +144,14 @@
 .message-area {
   flex-grow: 1;
   padding: 10px;
-  /* border: 2px solid white; */
   background-color:#7a0025;
   flex-direction: column;
   display: flex;
 }
 
 .message-lead {
-  border: 2px solid pink;
   max-width: 60%;
-  width: fit-content
+  width: fit-content;
 }
 
 .message-user {
@@ -161,7 +159,7 @@
   width: 100px;
   align-self: flex-end;
   max-width: 60%;
-  width: fit-content
+  width: fit-content;
 }
 
 .input-area {
