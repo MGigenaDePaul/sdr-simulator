@@ -94,7 +94,8 @@
   background-color: #0276FF;
   border-radius: 18px;
   padding: 10px;
-  height: 250px;
+  padding-bottom: 50px;
+  min-height: 250px;
   width: 260px; 
   flex-shrink: 0;
 }
